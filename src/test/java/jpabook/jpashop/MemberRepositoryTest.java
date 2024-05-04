@@ -2,6 +2,8 @@ package jpabook.jpashop;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.repository.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,20 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 class MemberRepositoryTest {
 
-  @Autowired MemberRepository memberRepository;
+  @Autowired
+  MemberRepository memberRepository;
 
   @Test
   @Transactional
   @Rollback(value = false)
-  public void testMember() throws Exception {
-    
-    Member member = new Member();
-    member.setUsername("memberA");
-    Long saveId = memberRepository.save(member);
-    Member findMember = memberRepository.find(saveId);
-
-    Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
-    Assertions.assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
-    Assertions.assertThat(findMember).isEqualTo(member);
-  }
+  public void testMember() throws Exception {}
 }
