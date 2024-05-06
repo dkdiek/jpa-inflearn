@@ -40,6 +40,7 @@ public class ItemController {
     book.setIsbn(form.getIsbn());
 
     itemService.saveItem(book);
+    
     return "redirect:/";
   }
 
@@ -66,16 +67,9 @@ public class ItemController {
   }
   
   @PostMapping("/items/{itemId}/edit")
-  public String updateItem(@ModelAttribute("form") BookForm form) {
-    Book book = new Book();
-    book.setId(form.getId());
-    book.setName(form.getName());
-    book.setStockQuantity(form.getStockQuantity());
-    book.setPrice(form.getPrice());
-    book.setAuthor(form.getAuthor());
-    book.setIsbn(form.getIsbn());
+  public String updateItem(@PathVariable("itemId") Long itemId, @ModelAttribute("form") BookForm form) {
     
-    itemService.saveItem(book);
+    itemService.updateItem(itemId, form);
     return "redirect:/items";
   }
 }

@@ -8,9 +8,12 @@ import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.repository.ItemRepository;
 import jpabook.jpashop.repository.MemberRepository;
 import jpabook.jpashop.repository.OrderRepository;
+import jpabook.jpashop.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * jpabook.jpashop.service OrderService
@@ -38,20 +41,24 @@ public class OrderService {
 
     // 주문상품 생성
     OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
-    
+
     // 주문 생성
     Order order = Order.createOrder(member, delivery, orderItem);
-    
-    //저장(Cascade ALl로 인해 order와 orderitem 별도로 save안하고 같이 처리)
+
+    // 저장(Cascade ALl로 인해 order와 orderitem 별도로 save안하고 같이 처리)
     orderRepository.save(order);
     return order.getId();
   }
 
   // 취소
   @Transactional
-  public void cancelOrder(Long orderId){
+  public void cancelOrder(Long orderId) {
     Order order = orderRepository.findOne(orderId);
     order.cancel();
   }
+
   // 검색
+  public List<Order> findOrders(OrderSearch orderSearch) {
+    return orderRepository.findAllByString(orderSearch);
+  }
 }
