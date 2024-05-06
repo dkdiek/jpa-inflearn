@@ -47,6 +47,16 @@ public class OrderApiController {
     return orders.stream().map(OrderDto::new).collect(toList());
   }
   
+  @GetMapping("/api/v3/orders")
+  public List<OrderDto> ordersV3(){
+    List<Order> orders = orderRepository.findAllWithItem();
+    for (Order order : orders) {
+      System.out.println("order = " + order.getId());
+      System.out.println("order ref = " + order);
+    }
+    return orders.stream().map(OrderDto::new).collect(toList());
+  }
+  
   @Getter
   static class OrderDto{
 
