@@ -11,11 +11,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * jpabook.jpashop.domain Order
- *
- * @author : K
- */
 @Entity
 @Table(name = "orders")
 @Getter
